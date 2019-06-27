@@ -1,0 +1,20 @@
+extends ./layout
+
+block variables
+  - const page_title = "Homepage";
+  - const site_name = "URL Shortener"
+
+block content
+  section.container
+    .title.d-flex.flex-column.justify-content-center.align-items-center
+      h1.text-secondary
+        | SHORTENING YOUR URL?
+        img(src='https://www.printrunner.com/blog/wp-content/uploads/2016/09/10_UsingURLShorteners.jpg', title='main-image', style='width: 100%;') 
+  
+    .container
+      form(action='/shorten' method='POST')
+        input.form-control.mt-4(type="text", name="originUrl", placeholder="Enter URL", aria-label="Url", value="", aria-describedby="submit-button")
+        small.text-danger
+          | #{message}
+        button#submit-button.btn.btn-primary.btn-block.mt-3.mb-5(type="submit")
+          | SHORTEN!

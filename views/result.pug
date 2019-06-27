@@ -1,0 +1,17 @@
+extends ./layout
+
+block variables
+  - const page_title = 'SHORTENING YOUR URL?'
+  - const site_name = "Shorten Result"
+
+block content
+  section.container
+    .title.d-flex.flex-column.justify-content-center.align-items-center
+      h1.text-secondary
+        | SHORTENING YOUR URL?
+        img(src='https://www.printrunner.com/blog/wp-content/uploads/2016/09/10_UsingURLShorteners.jpg', title='main-image', style='width: 100%;') 
+
+    .container
+      h1 Link shortening sucessful! Visit your website at
+        a(href='https://secure-ridge-30536.herokuapp.com/#{url.newUrl}')
+          |  https://secure-ridge-30536.herokuapp.com/#{url.newUrl}
