@@ -1,29 +1,33 @@
 const express = require('express')
 const router = express.Router()
 const Url = require('../models/url')
-const urlGenerate = require('../urlGenerate')
+const randomCode = require('../randomCode.js')
+const keroku = 'https://alvis-url-shortener.herokuapp.com/'
+
+function shortPath() {
+  let getCode = randomCode(5)
+  Url.findOne({ newUrl: getCode }, (err, url) => {
+    if (err) return console.error('err1:', err)
+    if (url) return shortPath()
+    return getCode
+  })
+}
 
 router.post('/', (req, res) => {
-  const originUrl = req.body.originUrl
-  if (!originUrl) res.render('index', { message: '請輸入網址！' })
+  if (!req.body.originUrl) res.render('index', { message: '請輸入網址！' })
 
-  Url.findOne({ originUrl: originUrl }, (err, url) => {
-    if (err) return console.error(err)
-    if (url) return res.render('result', { url: url })
+  Url.findOne({ originUrl: req.body.originUrl }, (err, url) => {
+    if (err) return console.error('err2:', err)
+    if (url) return res.render('result', { url, keroku })
 
-    const newUrl = urlGenerate(5)
-    Url.findOne({ newUrl: newUrl }, (err, url) => {
-      if (err) return console.error(err)
-      if (url) return res.redirect('/shorten')
+    const urlData = new Url({
+      originUrl: req.body.originUrl,
+      newUrl: shortPath(),
+    })
 
-      const urlData = new Url({
-        originUrl: req.body.originUrl,
-        newUrl: newUrl,
-      })
-      urlData.save((err, url) => {
-        if (err) return console.log(err)
-        return res.render('result', { url: url })
-      })
+    urlData.save((err, url) => {
+      if (err) return console.log('err3:', err)
+      return res.render('result', { url, keroku })
     })
   })
 })

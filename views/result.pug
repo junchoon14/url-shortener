@@ -2,7 +2,8 @@ extends ./layout
 
 block variables
   - const page_title = 'SHORTENING YOUR URL?'
-  - const site_name = "Shorten Result"
+  - const site_name = 'Shorten Result'
+  - const kerokuURL = 'https://alvis-url-shortener.herokuapp.com/'
 
 block content
   section.container
@@ -13,5 +14,8 @@ block content
 
     .container
       h1 Link shortening sucessful! Visit your website at
-        a(href=`https://alvis-url-shortener.herokuapp.com/${url.newUrl}`)
-          |  https://alvis-url-shortener.herokuapp.com/#{url.newUrl}
+        a(href= `${keroku}${url.newUrl}`)
+          |   #{keroku}#{url.newUrl}
+
+        //- a(href= kerokuURL + `${url.newUrl}`)
+        //-   |   #{kerokuURL}#{url.newUrl}
