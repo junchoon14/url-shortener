@@ -7,10 +7,12 @@ block variables
 
 block content
   section.container
-    .title.d-flex.flex-column.justify-content-center.align-items-center
-      h1.text-secondary
+    - const titleClass = ['title', 'd-flex', 'flex-column', 'justify-content-center', 'mt-2']
+    div(class = titleClass)
+      - const h1Class = ['text-secondary', 'mt-2']
+      h1(class = h1Class)
         | SHORTENING YOUR URL?
-        img(src='https://www.printrunner.com/blog/wp-content/uploads/2016/09/10_UsingURLShorteners.jpg', title='main-image', style='width: 100%;') 
+      img(src='https://www.printrunner.com/blog/wp-content/uploads/2016/09/10_UsingURLShorteners.jpg', title='main-image', style='width: 100%;') 
 
     .container
       h1 Link shortening sucessful! Visit your website at
